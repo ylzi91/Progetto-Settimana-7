@@ -5,6 +5,8 @@ myAdmin.addEventListener('click', function (e) {
     e.target.innerText = e.target.innerText === 'Sono amministratore' ? 'Non sono amministratore' : 'Sono amministratore'
     const btnMod = document.querySelectorAll('.btnMod')
     const btnDel = document.querySelectorAll('.btnDel')
+    const crateLink = document.getElementById('createLink')
+    crateLink.classList.toggle('d-none')
     for (let i = 0; i < btnMod.length; i++) {
         btnMod[i].classList.toggle('d-none')
         btnDel[i].classList.toggle('d-none')
