@@ -98,7 +98,8 @@ function buyProd(index, e){
     e.target.disabled = true
     CartArray.push({
         name: myProdArray[index].name,
-        price: myProdArray[index].price
+        price: myProdArray[index].price,
+        imageUrl: myProdArray[index].imageUrl
     })
     localStorage.setItem('myProdName', JSON.stringify(CartArray))
 
