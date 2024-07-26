@@ -1,5 +1,6 @@
 const myAdmin = document.getElementById('myAdmin')
-
+const myProdArray = []
+const CartArray = []
 myAdmin.addEventListener('click', function (e) {
     e.target.innerText = e.target.innerText === 'Sono amministratore' ? 'Non sono amministratore' : 'Sono amministratore'
     const btnMod = document.querySelectorAll('.btnMod')
@@ -48,7 +49,7 @@ const getProduct = function () {
 function showProduct(myArray = [], prodRow) {
 
     myArray.forEach((product, index) => {
-
+        myProdArray.push(product)
         const newProdCol = `
         <div class="col mb-3">
                     <div class="card">
@@ -59,10 +60,10 @@ function showProduct(myArray = [], prodRow) {
                             <p class="card-text"><a href = "./dettagli.html?vhsId=${product._id}" class= " btn border border-black rounded-0 ">Vedi dettagli</a></p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-body-secondary">
-                                <button class="btn btn-success">Compra</button>
-                                <a href = "./Inserimento.html?vhsId=${product._id}" class="btn btnMod btn-warning d-none">Modifica</a>
-                                <button data-bs-toggle="modal" data-bs-target="#exampleModal" onclick = "deleteItem('${product._id}')" class="btn btnDel btn-danger d-none">Elimina</button>
+                            <small class="text-body-secondary d-flex w-75 mx-auto flex-column">
+                                <button onclick = "buyProd(${index}, event)" class="btn btn-success mb-2">Compra</button>
+                                <a href = "./Inserimento.html?vhsId=${product._id}" class="btn btnMod btn-warning d-none mb-2">Modifica</a>
+                                <button data-bs-toggle="modal" data-bs-target="#exampleModal" onclick = "deleteItem('${product._id}')" class="btn btnDel btn-danger d-none mb-2">Elimina</button>
                             </small>
                         </div>
                     </div>
@@ -71,6 +72,8 @@ function showProduct(myArray = [], prodRow) {
 
         prodRow.innerHTML += newProdCol
     })
+
+   
 
 }
 getProduct()
@@ -89,5 +92,15 @@ function deleteItem(idDelProduct) {
             .then(() => getProduct())
     })
 
+}
+
+function buyProd(index, e){
+    e.target.disabled = true
+    CartArray.push({
+        name: myProdArray[index].name,
+        price: myProdArray[index].price
+    })
+    localStorage.setItem('myProdName', JSON.stringify(CartArray))
 
 }
+
